@@ -80,15 +80,15 @@ def main():
             (df_stats.city == city) & (df_stats.season == "winter"), ["mean", "std"]
         ].values[0]
 
-        lower_bound = normal_mean - 2 * normal_std
-        upper_bound = normal_mean + 2 * normal_std
+        min_bound = normal_mean - 2 * normal_std
+        max_bound = normal_mean + 2 * normal_std
 
-        is_anomaly = True if curr_temp > upper_bound or curr_temp < lower_bound else False
+        not_ok = True if curr_temp > max_bound or curr_temp < min_bound else False
 
-        if is_anomaly:
-            st.error(f"Current temperature in {city}: **{curr_temp} °C**. IT IS AN ANOMALY!!!")
+        if not_ok:
+            st.error(f"Current temperature in {city}: **{curr_temp} °C**. It is NOT ok")
         else:
-            st.success(f"Current temperature in {city}: **{curr_temp} °C**. Everything is fine.")
+            st.success(f"Current temperature in {city}: **{curr_temp} °C**. It is ok")
 
         fig, ax = plt.subplots(figsize=(10, 7))
         plt.title(f"Temperature distribution in {city}")
@@ -100,14 +100,14 @@ def main():
 
         df_slice = df_stats.loc[df_stats.city == city]
         df_slice.loc[:, "timestamp"] = pd.to_datetime(df_slice["timestamp"])
-        df_anomaly = df_slice.loc[df_slice["is_anomaly"] == 1]
+        df_not_ok = df_slice.loc[df_slice["not_ok"] == 1]
 
         ax.plot(df_slice["timestamp"], df_slice["temperature"], label="Temperature")
         ax.plot(df_slice["timestamp"], df_slice["min"], label="Normal temperature lower bound",
                 linestyle='dashed')
         ax.plot(df_slice["timestamp"], df_slice["max"], label="Normal temperature upper bound",
                 linestyle='dashed')
-        ax.scatter(df_anomaly["timestamp"], df_anomaly["temperature"], color="red", marker="*", label="anomaly")
+        ax.scatter(df_not_ok["timestamp"], df_not_ok["temperature"], color="red", marker="*", label="anomaly")
 
         ax.legend()
         st.pyplot(fig)
