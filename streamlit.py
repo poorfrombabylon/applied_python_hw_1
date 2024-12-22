@@ -86,9 +86,9 @@ def main():
         is_anomaly = True if curr_temp > upper_bound or curr_temp < lower_bound else False
 
         if is_anomaly:
-            st.error(f"Current temperature in {city}: **{curr_temp} °C**. It is NOT ok")
+            st.error(f"Current temperature in {city}: **{curr_temp} °C**. IT IS AN ANOMALY!!!")
         else:
-            st.success(f"Current temperature in {city}: **{curr_temp} °C**. It is ok.")
+            st.success(f"Current temperature in {city}: **{curr_temp} °C**. Everything is fine.")
 
         fig, ax = plt.subplots(figsize=(10, 7))
         plt.title(f"Temperature distribution in {city}")
@@ -119,3 +119,4 @@ if __name__ == "__main__":
         page_title="OpenWeather Demo",
     )
 
+    main()
