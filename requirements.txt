@@ -1,0 +1,4 @@
+aiohttp==3.10.10
+matplotlib==3.9.0
+matplotlib-inline==0.1.7
+seaborn==0.13.2

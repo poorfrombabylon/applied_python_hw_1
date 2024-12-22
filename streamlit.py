@@ -86,9 +86,9 @@ def main():
         is_anomaly = True if curr_temp > upper_bound or curr_temp < lower_bound else False
 
         if is_anomaly:
-            st.error(f"Current temperature in {city}: **{curr_temp} °C**. IT IS AN ANOMALY!!!")
+            st.error(f"Current temperature in {city}: **{curr_temp} °C**. It is NOT ok")
         else:
-            st.success(f"Current temperature in {city}: **{curr_temp} °C**. Everything is fine.")
+            st.success(f"Current temperature in {city}: **{curr_temp} °C**. It is ok.")
 
         fig, ax = plt.subplots(figsize=(10, 7))
         plt.title(f"Temperature distribution in {city}")
