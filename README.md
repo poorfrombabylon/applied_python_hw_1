@@ -1,0 +1,1 @@
+cсылка на Strealit: https://pogodnaya-sueta.streamlit.app/
